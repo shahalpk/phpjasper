@@ -138,7 +138,7 @@ class PHPJasper
             ];
 
             foreach ($options['db_connection'] as $key => $value) {
-                $this->command .= " {$mapDbParams[$key]} {$value}";
+                $this->command .= " {$mapDbParams[$key]} '{$value}'";
             }
         }
 
