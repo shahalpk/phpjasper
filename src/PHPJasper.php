@@ -80,6 +80,8 @@ class PHPJasper
         if (!empty($output)) {
             $this->command .= ' -o ' . "\"$output\"";
         }
+        
+        $this->command .= " 2>&1";
 
         return $this;
     }
@@ -145,6 +147,8 @@ class PHPJasper
         if ($options['resources']) {
             $this->command .= " -r {$options['resources']}";
         }
+        
+        $this->command .= " 2>&1";
 
         return $this;
     }
@@ -218,7 +222,8 @@ class PHPJasper
         chdir($this->pathExecutable);
         exec($this->command, $output, $returnVar);
         if ($returnVar !== 0) {
-            throw new Exception\ErrorCommandExecutable();
+            $message = implode(' ', $output);
+            throw new \PHPJasper\Exception\ErrorCommandExecutable($message);
         }
 
         return $output;
